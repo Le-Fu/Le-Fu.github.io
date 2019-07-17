@@ -1,13 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Simon Lab</title>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    .editor-container {
+      margin: 50px auto;
+      width: 600px;
+    }
+
+    .editor-tab {
+      display: flex;
+    }
+
+    .editor-tab__item {
+      position: relative;
+      display: inline-block;
+      height: 50px;
+      width: 50px;
+      line-height: 50px;
+      text-align: center;
+      font-size: 30px;
+      cursor: pointer;
+      background-color: #ccc;
+    }
+
+    .editor-tab__item:focus {
+      border: 0;
+      outline: none;
+    }
+
+    .editor-tab__item.type-font-size:hover .editor-tab__item_panel {
+      display: block;
+    }
+
+    .type-font-size .editor-tab__item_panel {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      padding: 10px;
+      background-color: #ccc;
+    }
+
+    .editor-tab__item_panel--step {
+      display: inline-block;
+      padding: 20px;
+      font-size: 18px;
+      border: none;
+      background-color: #ccc;
+      border-bottom: 1px solid #000000;
+      cursor: pointer;
+    }
+
+    .editor-tab__item_panel--step:focus {
+      outline: none;
+    }
+
+    .editor-content {
+      padding: 15px;
+      min-height: 300px;
+      border: 1px solid #cccccc;
+    }
+
+    .editor-content:focus {
+      outline: 0;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Hello World</h1>
-  <h2>github pages</h2>
+  <div class="editor-container">
+    <div class="editor-tab">
+      <div class="editor-tab__item type-font-size">
+        F
+        <ul class="editor-tab__item_panel">
+          <li><button class="editor-tab__item_panel--step" data-role="fontSize" data-value="1">1</button></li>
+          <li><button class="editor-tab__item_panel--step" data-role="fontSize" data-value="2">2</button></li>
+          <li><button class="editor-tab__item_panel--step" data-role="fontSize" data-value="3">3</button></li>
+        </ul>
+      </div>
+      <button class="editor-tab__item type-bold" data-role="bold">
+        B
+      </button>
+      <button class="editor-tab__item type-italic" data-role="italic">
+        I
+      </button>
+      <button href="#" class="editor-tab__item type-underline" data-role="underline">
+        U
+      </button>
+      <button href="#" class="editor-tab__item type-strike-through" data-role="strikeThrough">
+        T
+      </button>
+    </div>
 
-
+    <div class="editor-content" contenteditable>
+      <div>
+        <h1>example</h1>
+        <br>
+      </div>
+      <div>
+        <ul>
+          <li><b>bold</b></li>
+          <li><i>italic</i></li>
+          <li><u>underline</u></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelector('.editor-tab').addEventListener('click', function (e) {
+      e.preventDefault();
+      const aCommandName = e.target.dataset.role
+      const aShowDefaultUI = false
+      const aValueArgument = e.target.dataset.value || null
+      document.execCommand(aCommandName, aShowDefaultUI, aValueArgument)
+    });
+  </script>
 </body>
+
 </html>
